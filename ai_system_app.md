@@ -1,7 +1,7 @@
 # AI_SYSTEM_PROTOTYPE.md
 
 ## Project Overview
-Create a functional prototype of an AI-driven system capable of assisting in software development. The system should have a **modern, elegant, and user-friendly UI/UX** interface inspired by **Clerk** and **Vite**. This prototype will act as a proof of concept for a larger system while maintaining powerful and focused functionality.
+AI-driven system capable of assisting in software development. The system should have a **modern, elegant, and user-friendly UI/UX** interface inspired by **Clerk** and **Vite**. This prototype will act as a proof of concept for a larger system while maintaining powerful and focused functionality.
 
 ---
 
