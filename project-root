@@ -1,0 +1,30 @@
+.
+├── src/
+│   ├── core/              # AI system core functionality
+│   │   ├── ai/           # AI service integrations
+│   │   ├── utils/        # Utility functions
+│   │   └── types/        # TypeScript types/interfaces
+│   │
+│   ├── ui/               # Frontend components
+│   │   ├── components/   # Reusable UI components
+│   │   ├── layouts/      # Page layouts
+│   │   ├── styles/       # Global styles
+│   │   └── assets/       # Images, fonts, etc.
+│   │
+│   └── api/              # API integrations
+│       ├── figma/        # Figma API integration
+│       └── openai/       # OpenAI API integration
+│
+├── config/               # Configuration files
+│   ├── .env.example     # Example environment variables
+│   └── api.config.ts    # API configuration
+│
+├── tests/               # Test files
+│   ├── unit/           # Unit tests
+│   ├── integration/    # Integration tests
+│   └── e2e/           # End-to-end tests
+│
+└── docs/               # Documentation
+    ├── api/           # API documentation
+    ├── setup/         # Setup guides
+    └── design/        # Design documentation
