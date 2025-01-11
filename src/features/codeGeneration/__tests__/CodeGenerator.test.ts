@@ -97,6 +97,43 @@ describe('CodeGenerator', () => {
       expect(component?.fileName).toMatch(/\.vue$/);
     });
 
+    it('should generate Angular components and module', async () => {
+      generator.setOptions({ framework: 'angular' });
+      const mockComponent: ComponentToken = {
+        id: 'button-1',
+        name: 'Button',
+        type: 'component',
+        path: ['components'],
+        isComponent: true,
+        value: {
+          id: '1',
+          name: 'Button',
+          key: 'btn-1',
+          remote: false,
+          styles: {
+            layout: {
+              layoutMode: 'HORIZONTAL',
+              layoutConstraint: {
+                vertical: 'TOP',
+                horizontal: 'LEFT'
+              }
+            }
+          }
+        }
+      };
+
+      const result = await generator.generateFromTokens([mockComponent]);
+      const component = result.find(r => r.type === 'component');
+      const module = result.find(r => r.type === 'module');
+      
+      expect(component?.fileName).toMatch(/\.component\.ts$/);
+      expect(component?.content).toContain('@Component');
+      expect(component?.content).toContain('selector: \'app-button\'');
+      expect(module?.fileName).toBe('components.module.ts');
+      expect(module?.content).toContain('@NgModule');
+      expect(module?.content).toContain('ButtonComponent');
+    });
+
     it('should handle different style formats', async () => {
       generator.setOptions({ styleFormat: 'scss' });
       const mockColor: DesignToken = {

@@ -13,7 +13,7 @@ export interface CodeGenerationOptions {
 export interface GeneratedCode {
   fileName: string;
   content: string;
-  type: 'component' | 'style' | 'type' | 'index';
+  type: 'component' | 'style' | 'type' | 'index' | 'module';
   path: string[];
 }
 

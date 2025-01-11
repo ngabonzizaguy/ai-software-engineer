@@ -2,11 +2,12 @@ import { DesignToken, ComponentToken } from '@/types/tokens';
 import { CodeGenerationOptions, GeneratedCode, Framework, StyleFormat } from './types';
 import { ReactGenerator } from './frameworks/ReactGenerator';
 import { VueGenerator } from './frameworks/VueGenerator';
+import { AngularGenerator } from './frameworks/AngularGenerator';
 import { StyleGenerator } from './styles/StyleGenerator';
 
 export class CodeGenerator {
   private options: CodeGenerationOptions;
-  private frameworkGenerator: ReactGenerator | VueGenerator;
+  private frameworkGenerator: ReactGenerator | VueGenerator | AngularGenerator;
   private styleGenerator: StyleGenerator;
 
   constructor(options: CodeGenerationOptions) {
@@ -19,6 +20,8 @@ export class CodeGenerator {
     switch (options.framework) {
       case 'vue':
         return new VueGenerator(options);
+      case 'angular':
+        return new AngularGenerator(options);
       case 'react':
       default:
         return new ReactGenerator(options);
@@ -48,9 +51,14 @@ export class CodeGenerator {
       generatedCode.push(componentStyles);
     }
 
-    // Generate index file
-    const indexFile = this.generateIndexFile(componentTokens);
-    generatedCode.push(indexFile);
+    // Generate framework-specific module/index file
+    if (this.options.framework === 'angular') {
+      const moduleFile = await (this.frameworkGenerator as AngularGenerator).generateModule(componentTokens);
+      generatedCode.push(moduleFile);
+    } else {
+      const indexFile = this.generateIndexFile(componentTokens);
+      generatedCode.push(indexFile);
+    }
 
     return generatedCode;
   }
