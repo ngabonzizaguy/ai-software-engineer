@@ -45,81 +45,81 @@ export default function Code() {
 
       const data = await response.json();
       setGeneratedCode(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate code');
+    } catch (err: any) {
+      setError(err.message || 'Failed to generate code');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <>
+    <div className="min-h-screen flex items-center justify-center py-6">
       <Head>
         <title>Generate Code - AI Software Engineer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </Head>
-
-      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Generate Code</h2>
+      <div className="container max-w-4xl mx-auto px-4 flex flex-col">
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent">
+            Generate Code
+          </h2>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Configure your code generation preferences and preview the output.
           </p>
         </div>
 
-        {/* Quick Guide */}
-        <div className="mb-8 bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4">
-          <h3 className="text-lg font-medium text-blue-900 dark:text-blue-300 mb-2">Code Generation Guide</h3>
-          <ul className="list-disc list-inside space-y-2 text-sm text-blue-800 dark:text-blue-200">
-            <li>Select your preferred framework (React, Vue, or Angular)</li>
-            <li>Choose a style format (CSS, SCSS, or Tailwind)</li>
-            <li>Click "Generate Code" to create components and styles</li>
-            <li>Review the generated code and copy what you need</li>
-          </ul>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700">
-          <div className="px-4 py-5 sm:p-6 space-y-8">
+        <div className="glass shadow-lg rounded-lg flex-1 flex flex-col overflow-hidden">
+          <div className="p-6 space-y-6">
             {/* Options */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Framework</label>
-                <select
-                  value={framework}
-                  onChange={(e) => setFramework(e.target.value as Framework)}
-                  className="
-                    mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600
-                    shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm
-                    dark:bg-gray-700 dark:text-white
-                  "
-                >
-                  <option value="react">React</option>
-                  <option value="vue">Vue</option>
-                  <option value="angular">Angular</option>
-                </select>
+              <div className="relative group">
+                <label className="block text-sm font-medium bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent mb-2">
+                  Framework
+                </label>
+                <div className="relative">
+                  <select
+                    value={framework}
+                    onChange={(e) => setFramework(e.target.value as Framework)}
+                    className="appearance-none w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white shadow-sm transition-colors hover:border-blue-500 dark:hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20"
+                  >
+                    <option value="react">React</option>
+                    <option value="vue">Vue</option>
+                    <option value="angular">Angular</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Style Format</label>
-                <select
-                  value={styleFormat}
-                  onChange={(e) => setStyleFormat(e.target.value as StyleFormat)}
-                  className="
-                    mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600
-                    shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm
-                    dark:bg-gray-700 dark:text-white
-                  "
-                >
-                  <option value="css">CSS</option>
-                  <option value="scss">SCSS</option>
-                  <option value="tailwind">Tailwind CSS</option>
-                </select>
+              <div className="relative group">
+                <label className="block text-sm font-medium bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent mb-2">
+                  Style Format
+                </label>
+                <div className="relative">
+                  <select
+                    value={styleFormat}
+                    onChange={(e) => setStyleFormat(e.target.value as StyleFormat)}
+                    className="appearance-none w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white shadow-sm transition-colors hover:border-blue-500 dark:hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20"
+                  >
+                    <option value="css">CSS</option>
+                    <option value="scss">SCSS</option>
+                    <option value="tailwind">Tailwind CSS</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
 
             {error && (
-              <div className="rounded-md bg-red-50 dark:bg-red-900/30 p-4">
-                <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+              <div className="rounded-lg bg-red-50/50 dark:bg-red-900/20 border border-red-200/50 dark:border-red-800/50 backdrop-blur-sm p-4">
+                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
               </div>
             )}
 
@@ -128,42 +128,50 @@ export default function Code() {
                 onClick={handleGenerate}
                 disabled={loading}
                 className={`
-                  w-full sm:w-auto flex justify-center py-2 px-4 border border-transparent
-                  rounded-md shadow-sm text-sm font-medium text-white
+                  relative w-full sm:w-auto px-6 py-2.5 rounded-lg font-medium text-white
+                  transition-all duration-200 ease-in-out
                   ${loading
-                    ? 'bg-blue-400 dark:bg-blue-500 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
+                    ? 'bg-blue-400/80 dark:bg-blue-500/80 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-500 dark:to-violet-500 hover:from-blue-700 hover:to-violet-700 dark:hover:from-blue-600 dark:hover:to-violet-600 shadow-lg shadow-blue-500/20 dark:shadow-blue-800/30'
                   }
+                  focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20
                 `}
               >
                 {loading ? (
-                  <span className="flex items-center">
+                  <span className="flex items-center justify-center">
                     <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     Generating...
                   </span>
-                ) : 'Generate Code'}
+                ) : (
+                  <>
+                    Generate Code
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-400/20 to-violet-400/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </>
+                )}
               </button>
             </div>
+          </div>
 
-            {/* Code Preview */}
-            {generatedCode && (
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Generated Code</h3>
-                <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
-                  <div className="overflow-x-auto">
-                    <pre className="p-4 text-sm text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-900">
-                      {JSON.stringify(generatedCode, null, 2)}
-                    </pre>
-                  </div>
+          {/* Code Preview with fixed height and scrolling */}
+          {generatedCode && (
+            <div className="border-t border-gray-200/50 dark:border-gray-700/50 p-6">
+              <h3 className="text-lg font-medium bg-gradient-to-r from-blue-600 to-violet-600 dark:from-blue-400 dark:to-violet-400 bg-clip-text text-transparent mb-4">
+                Generated Code
+              </h3>
+              <div className="border border-gray-200/50 dark:border-gray-700/50 rounded-lg overflow-hidden backdrop-blur-sm">
+                <div className="overflow-auto max-h-[500px] scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
+                  <pre className="p-4 text-sm text-gray-800 dark:text-gray-200 bg-white/50 dark:bg-gray-900/50 whitespace-pre-wrap">
+                    {JSON.stringify(generatedCode, null, 2)}
+                  </pre>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 } 
