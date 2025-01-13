@@ -205,4 +205,4 @@ export class DesignTokenExtractor {
 
     this.tokens.push(componentToken);
   }
-} 
+}

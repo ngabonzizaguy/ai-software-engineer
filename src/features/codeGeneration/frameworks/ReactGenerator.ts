@@ -101,4 +101,4 @@ interface ${name}Props extends HTMLAttributes<HTMLDivElement> {
 
     return styles.join(' ');
   }
-} 
+}

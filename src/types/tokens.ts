@@ -158,4 +158,4 @@ export type DesignToken =
   | ShadowToken
   | OpacityToken
   | LayoutToken
-  | ComponentToken; 
+  | ComponentToken;

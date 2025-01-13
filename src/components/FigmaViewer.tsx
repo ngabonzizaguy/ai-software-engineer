@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TokenList } from './TokenList';
+import { TokenAnalytics } from './analytics/TokenAnalytics';
 import { DesignToken } from '@/types/tokens';
 
 export const FigmaViewer: React.FC = () => {
@@ -9,6 +10,7 @@ export const FigmaViewer: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [showDetails, setShowDetails] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [activeTab, setActiveTab] = useState<'list' | 'analytics'>('list');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,19 +123,52 @@ export const FigmaViewer: React.FC = () => {
           
           {tokens.length > 0 && (
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <div className="text-sm text-gray-600">
-                  {tokens.length} tokens extracted
-                </div>
-                <button
-                  onClick={() => setShowDetails(!showDetails)}
-                  className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                  {showDetails ? 'Hide Details' : 'View Details'}
-                </button>
+              <div className="border-b border-gray-200">
+                <nav className="-mb-px flex space-x-8">
+                  <button
+                    onClick={() => setActiveTab('list')}
+                    className={`
+                      py-4 px-1 border-b-2 font-medium text-sm
+                      ${activeTab === 'list'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+                    `}
+                  >
+                    Token List
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('analytics')}
+                    className={`
+                      py-4 px-1 border-b-2 font-medium text-sm
+                      ${activeTab === 'analytics'
+                        ? 'border-blue-500 text-blue-600'
+                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}
+                    `}
+                  >
+                    Analytics
+                  </button>
+                </nav>
               </div>
-              
-              {showDetails && <TokenList tokens={tokens} />}
+
+              {activeTab === 'list' ? (
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <div className="text-sm text-gray-600">
+                      {tokens.length} tokens extracted
+                    </div>
+                    <button
+                      onClick={() => setShowDetails(!showDetails)}
+                      className="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      {showDetails ? 'Hide Details' : 'View Details'}
+                    </button>
+                  </div>
+                  
+                  {showDetails && <TokenList tokens={tokens} />}
+                </div>
+              ) : (
+                <TokenAnalytics tokens={tokens} />
+              )}
             </div>
           )}
         </div>

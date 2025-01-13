@@ -22,23 +22,30 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
+const getThemeFromStorage = (key: string, fallback: Theme): Theme => {
+  if (typeof window === "undefined") return fallback
+  try {
+    const theme = window.localStorage.getItem(key) as Theme
+    return theme || fallback
+  } catch (e) {
+    // If localStorage is not available or throws an error
+    return fallback
+  }
+}
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
   storageKey = "ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(defaultTheme)
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem(storageKey) as Theme
-    if (savedTheme) {
-      setTheme(savedTheme)
-    }
-  }, [storageKey])
+  const [theme, setTheme] = useState<Theme>(() => 
+    getThemeFromStorage(storageKey, defaultTheme)
+  )
 
   useEffect(() => {
     const root = window.document.documentElement
+
     root.classList.remove("light", "dark")
 
     if (theme === "system") {
@@ -54,10 +61,17 @@ export function ThemeProvider({
     root.classList.add(theme)
   }, [theme])
 
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(storageKey, theme)
+    } catch (e) {
+      // Handle localStorage errors silently
+    }
+  }, [theme, storageKey])
+
   const value = {
     theme,
     setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
       setTheme(theme)
     },
   }
